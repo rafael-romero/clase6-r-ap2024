@@ -1,8 +1,19 @@
 function obtenerCantidadDeIntegrantes() {
-  const $cantidadDeIntegrantes = Number(
+  const cantidadDeIntegrantes = Number(
     document.querySelector("#cantidad-de-integrantes").value
   );
-  return $cantidadDeIntegrantes;
+  return cantidadDeIntegrantes;
+}
+
+function validarCantidadDeIntegrantes(cantidadDeIntegrantes) {
+  if (cantidadDeIntegrantes === 0 || cantidadDeIntegrantes < 0) {
+    return "El numero ingresado debe ser mayor a cero!";
+  } else if (isNaN(cantidadDeIntegrantes)) {
+    return "Solo se aceptan numeros enteros positivos!";
+  } else if (cantidadDeIntegrantes % 1 !== 0) {
+    return "No se aceptan decimales, solo se aceptan numeros enteros positivos!"
+  }
+  return "";
 }
 
 function crearCamposInputs(cantidadDeIntegrantes) {
@@ -28,13 +39,14 @@ function mostrarElemento(elemento) {
 const $btnOk = document.querySelector("#btn-ok");
 $btnOk.onclick = function (e) {
   const cantidadDeIntegrantes = obtenerCantidadDeIntegrantes();
+  validarCantidadDeIntegrantes(cantidadDeIntegrantes);
   if (cantidadDeIntegrantes > 0) {
     crearCamposInputs(cantidadDeIntegrantes);
     deshabilitarBotonOk();
     mostrarElemento("btn-calcular");
     mostrarElemento("btn-reset");
   }
-}
+};
 
 function obtenerEdades() {
   const edades = [];
@@ -94,7 +106,7 @@ $btnCalcular.onclick = function () {
   const edadPromedio = obtenerPromedioDeEdad(edades);
   mostrarCalculos(edadMayor, edadMenor, edadPromedio);
   ocultarElemento("btn-calcular");
-}
+};
 
 function borrarCamposInputs() {
   const $integrantes = document.querySelector("#integrantes");
@@ -118,4 +130,4 @@ $btnReset.onclick = function () {
   ocultarElemento("btn-calcular");
   habilitarBotonOk();
   eliminarCalculos();
-}
+};

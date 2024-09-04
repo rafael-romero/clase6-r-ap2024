@@ -1,29 +1,28 @@
-function probarValidarCantidadDeIntegrantes() {
+function probarValidarNumeroIngresado() {
   console.assert(
-    validarCantidadDeIntegrantes(0) ===
-      "El numero ingresado debe ser mayor a cero!",
+    validarNumeroIngresado(0) === "El numero ingresado debe ser mayor a cero!",
     "Validar cantidad de integrantes no funciono con el numero 0"
   );
 
   console.assert(
-    validarCantidadDeIntegrantes(-5) ===
-      "El numero ingresado debe ser mayor a cero!",
+    validarNumeroIngresado(-5) === "El numero ingresado debe ser mayor a cero!",
     "Validar cantidad de integrantes no funciono con un numero negativo"
   );
 
   console.assert(
-    validarCantidadDeIntegrantes("perro") ===
+    validarNumeroIngresado("perro") ===
       "Solo se aceptan numeros enteros positivos!",
     "Validar cantidad de integrantes no valido que el valor sea NaN"
   );
 
   console.assert(
-    validarCantidadDeIntegrantes(2.6) === "No se aceptan decimales, solo se aceptan numeros enteros positivos!",
+    validarNumeroIngresado(2.6) ===
+      "No se aceptan decimales, solo se aceptan numeros enteros positivos!",
     "Validar cantidad de integrantes fallo con un numero decimal"
-  )
+  );
 
   console.assert(
-    validarCantidadDeIntegrantes(7) === "",
+    validarNumeroIngresado(7) === "",
     "Validar cantidad de integrantes no funciono con un numero valido"
   );
 }
@@ -42,12 +41,14 @@ function probarObtenerEdadMenor(arregloDeEjemplo) {
   );
 }
 
-function probarObtenerPromedioDeEdad(arregloDeEjemplo){
-  console.assert(obtenerPromedioDeEdad(arregloDeEjemplo) === 4.6,
-  "Obtener promedio edad no funciono correctamente");
+function probarObtenerPromedioDeEdad(arregloDeEjemplo) {
+  console.assert(
+    obtenerPromedioDeEdad(arregloDeEjemplo) === 4.6,
+    "Obtener promedio edad no funciono correctamente"
+  );
 }
 
-probarValidarCantidadDeIntegrantes();
+probarValidarNumeroIngresado();
 const arregloDeEjemplo = [2, 5, 9, 3, 4];
 probarObtenerEdadMayor(arregloDeEjemplo);
 probarObtenerEdadMenor(arregloDeEjemplo);

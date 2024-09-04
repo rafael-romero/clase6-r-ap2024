@@ -66,12 +66,12 @@ function obtenerSalarioAnualPromedio(salarios) {
   for (let i = 0; i < longitudSalarios; i++) {
     acumulador += salarios[i];
   }
-  return acumulador / longitudSalarios;
+  return Number((acumulador / longitudSalarios).toFixed(2));
 }
 
 function obtenerSalarioMensualPromedio(salarioAnualPromedio) {
   const mesesEnUnAnio = 12;
-  return salarioAnualPromedio / mesesEnUnAnio;
+  return Number((salarioAnualPromedio / mesesEnUnAnio).toFixed(2));
 }
 
 function mostrarCalculos(
@@ -82,16 +82,14 @@ function mostrarCalculos(
 ) {
   document.querySelector(
     "#resultado"
-  ).textContent = `El salario mayor es de: ${salarioMayor.toString()}$, el salario menor es de: ${salarioMenor.toString()}$, el salario anual promedio es de: ${salarioAnualPromedio
-    .toFixed(2)
-    .toString()}$, y el salario mensual promedio es de: ${salarioMensualPromedio
-    .toFixed(2)
-    .toString()}$`;
+  ).textContent = `El salario mayor es de: ${salarioMayor.toString()}$, el salario menor es de: ${salarioMenor.toString()}$, el salario anual promedio es de: ${salarioAnualPromedio.toString()}$, y el salario mensual promedio es de: ${salarioMensualPromedio.toString()}$`;
 }
 
 const $btnCalcular = document.querySelector("#btn-calcular");
 $btnCalcular.onclick = function () {
   const salarios = obtenerSalarios();
+  //aca deberia validar que los numeros ingresados sean correctos,
+  //pero necesito una estructura de tipo foreach para recorrer y un objeto para devolver los resultados y aun no se han visto en esta clase
   const salarioMayor = obtenerSalarioMayor(salarios);
   const salarioMenor = obtenerSalarioMenor(salarios);
   const salarioAnualPromedio = obtenerSalarioAnualPromedio(salarios);

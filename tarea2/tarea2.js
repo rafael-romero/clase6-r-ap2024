@@ -8,6 +8,7 @@ const $btnAgregarCampo = document.querySelector("#btn-agregar-campo");
 $btnAgregarCampo.onclick = function () {
   cantidadDeCampos++;
   const nodoCampo = document.createElement("fieldset");
+  nodoCampo.id = `contenedor-salario-integrante${cantidadDeCampos}`;
   nodoCampo.innerHTML = `<label for="salario-integrante${cantidadDeCampos}">
         El salario anual del integrante #${cantidadDeCampos} es:
         <input type="number" id="salario-integrante${cantidadDeCampos}" class='salario'>
@@ -85,20 +86,93 @@ function mostrarCalculos(
   ).textContent = `El salario mayor es de: ${salarioMayor.toString()}$, el salario menor es de: ${salarioMenor.toString()}$, el salario anual promedio es de: ${salarioAnualPromedio.toString()}$, y el salario mensual promedio es de: ${salarioMensualPromedio.toString()}$`;
 }
 
+function validarNumeroIngresado(salario) {
+  const patron = /^[1-9]\d{0,7}$/;
+  if (salario === 0 || salario < 0) {
+    return "El numero ingresado debe ser mayor a cero!";
+  } else if (salario % 1 !== 0) {
+    return "No se aceptan decimales, solo se aceptan numeros enteros positivos!";
+  } else if (!patron.test(salario.toString())) {
+    return "Solo se aceptan numeros enteros positivos!";
+  }
+  return "";
+}
+
+function marcarError(elemento) {
+  document.querySelector(`#${elemento}`).classList.add("error");
+}
+
+function crearElementoError(texto, id) {
+  const $error = document.createElement("span");
+  $error.textContent = texto;
+  $error.id = id;
+  return $error;
+}
+
+function agregarCampoMensajeDeError(padre, hijo) {
+  const nodoPadre = document.querySelector(`#${padre}`);
+  nodoPadre.appendChild(hijo);
+}
+
+function asignarMensajeAElemento(texto, elemento) {
+  document.querySelector(`#${elemento}`).textContent = texto;
+}
+
+function desmarcarError(elemento) {
+  document.querySelector(`#${elemento}`).classList.remove("error");
+}
+
+function eliminarCampoMensajeDeError(elemento) {
+  if (document.querySelector(`#${elemento}`) !== null) {
+    document.querySelector(`#${elemento}`).remove();
+  }
+}
+
+function validarSalarios(salarios) {
+  let cantidadDeErrores = 0;
+  salarios.forEach((salario, index) => {
+    const errorSalario = validarNumeroIngresado(salario);
+    const $campoMsjError = document.querySelector(
+      `#campoError${index + 1}`
+    );
+    if (errorSalario) {
+      cantidadDeErrores++;
+      marcarError(`salario-integrante${index + 1}`);
+      if ($campoMsjError === null) {
+        const elementoError = crearElementoError(
+          errorSalario,
+          `campoError${index + 1}`
+        );
+        agregarCampoMensajeDeError(
+          `contenedor-salario-integrante${index + 1}`,
+          elementoError
+        );
+      } else {
+        asignarMensajeAElemento(errorSalario, `campoError${index + 1}`);
+      }
+    } else {
+      desmarcarError(`salario-integrante${index + 1}`);
+      eliminarCampoMensajeDeError(`campoError${index + 1}`);
+    }
+  });
+  return cantidadDeErrores;
+}
+
 const $btnCalcular = document.querySelector("#btn-calcular");
 $btnCalcular.onclick = function () {
   const salarios = obtenerSalarios();
-  //aca deberia validar que los numeros ingresados sean correctos,
-  //pero necesito una estructura de tipo foreach para recorrer y un objeto para devolver los resultados y aun no se han visto en esta clase
-  const salarioMayor = obtenerSalarioMayor(salarios);
-  const salarioMenor = obtenerSalarioMenor(salarios);
-  const salarioAnualPromedio = obtenerSalarioAnualPromedio(salarios);
-  const salarioMensualPromedio =
-    obtenerSalarioMensualPromedio(salarioAnualPromedio);
-  mostrarCalculos(
-    salarioMayor,
-    salarioMenor,
-    salarioAnualPromedio,
-    salarioMensualPromedio
-  );
+  const sonValidos = validarSalarios(salarios) === 0;
+  if (sonValidos) {
+    const salarioMayor = obtenerSalarioMayor(salarios);
+    const salarioMenor = obtenerSalarioMenor(salarios);
+    const salarioAnualPromedio = obtenerSalarioAnualPromedio(salarios);
+    const salarioMensualPromedio =
+      obtenerSalarioMensualPromedio(salarioAnualPromedio);
+    mostrarCalculos(
+      salarioMayor,
+      salarioMenor,
+      salarioAnualPromedio,
+      salarioMensualPromedio
+    );
+  }
 };

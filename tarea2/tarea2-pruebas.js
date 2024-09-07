@@ -26,6 +26,28 @@ function validarObtenerSalarioMensualPromedio(salarioAnualPromedio) {
   );
 }
 
+function probarValidarNumeroIngresado() {
+  console.assert(
+    validarNumeroIngresado(0) === "El numero ingresado debe ser mayor a cero!",
+    "Validar cantidad de integrantes no funciono con el numero 0"
+  );
+  console.assert(
+    validarNumeroIngresado(-5) === "El numero ingresado debe ser mayor a cero!",
+    "Validar cantidad de integrantes no funciono con un numero negativo"
+  );
+
+  console.assert(
+    validarNumeroIngresado(2.6) ===
+      "No se aceptan decimales, solo se aceptan numeros enteros positivos!",
+    "Validar cantidad de integrantes fallo con un numero decimal"
+  );
+
+  console.assert(
+    validarNumeroIngresado(7) === "",
+    "Validar cantidad de integrantes no funciono con un numero valido"
+  );
+}
+
 const salariosDeEjemplo = [1200, 2400, 600];
 validarObtenerSalarioMayor(salariosDeEjemplo);
 validarObtenerSalarioMenor(salariosDeEjemplo);
@@ -33,3 +55,4 @@ validarObtenerSalarioAnualPromedio(salariosDeEjemplo);
 validarObtenerSalarioMensualPromedio(
   obtenerSalarioAnualPromedio(salariosDeEjemplo)
 );
+probarValidarNumeroIngresado();

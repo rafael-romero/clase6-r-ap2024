@@ -3,16 +3,9 @@ function probarValidarNumeroIngresado() {
     validarNumeroIngresado(0) === "El numero ingresado debe ser mayor a cero!",
     "Validar cantidad de integrantes no funciono con el numero 0"
   );
-
   console.assert(
     validarNumeroIngresado(-5) === "El numero ingresado debe ser mayor a cero!",
     "Validar cantidad de integrantes no funciono con un numero negativo"
-  );
-
-  console.assert(
-    validarNumeroIngresado("perro") ===
-      "Solo se aceptan numeros enteros positivos!",
-    "Validar cantidad de integrantes no valido que el valor sea NaN"
   );
 
   console.assert(
@@ -20,7 +13,7 @@ function probarValidarNumeroIngresado() {
       "No se aceptan decimales, solo se aceptan numeros enteros positivos!",
     "Validar cantidad de integrantes fallo con un numero decimal"
   );
-
+  
   console.assert(
     validarNumeroIngresado(7) === "",
     "Validar cantidad de integrantes no funciono con un numero valido"

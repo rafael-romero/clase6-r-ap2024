@@ -6,7 +6,12 @@
   <meta http-equiv='X-UA-Compatible' content='IE=edge'>
   <title>Tarea 1</title>
   <meta name='viewport' content='width=device-width, initial-scale=1'>
-  <link rel="stylesheet" href="tarea1.css">
+  <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <style>
+    .error {
+      border: 2px solid red;
+    }
+  </style>
 </head>
 
 <body>
@@ -18,8 +23,8 @@
     </fieldset>
 
     <fieldset id="integrantes">
-      
-      
+
+
     </fieldset>
     <fieldset>
       <button type="button" hidden id="btn-calcular">Calcular</button>
@@ -27,9 +32,11 @@
       <br><br>
       <em id="resultado"></em>
     </fieldset>
-    
+
   </form>
 
+  <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="../node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
   <script src='tarea1.js'></script>
   <script src='tarea1-pruebas.js'></script>
 </body>

@@ -21,11 +21,19 @@ function crearCamposInputs(cantidadDeIntegrantes) {
   for (let i = 0; i < cantidadDeIntegrantes; i++) {
     const nodoIntegrantes = document.createElement("div");
     nodoIntegrantes.id = `contenedor-integrante${i + 1}`;
-    nodoIntegrantes.innerHTML = `<label for="integrante${
+    nodoIntegrantes.classList.add(
+      "d-flex",
+      "row",
+      "align-items-center",
+      "position-relative",
+      "mb-1"
+    );
+    nodoIntegrantes.innerHTML = `<div class="col-auto h4"><label class= "col-form-label text-light" for="integrante${
       i + 1
-    }">Edad del integrante numero ${i + 1}:
-        <input type="number" id="integrante${i + 1}" class="familiares">
-      </label>`;
+    }">Edad del integrante numero ${i + 1}:</label></div>
+        <div class="col-auto"><input type="number" id="integrante${
+          i + 1
+        }" class="familiares form-control"></div>`;
     document.querySelector("#integrantes").append(nodoIntegrantes);
   }
 }
@@ -40,11 +48,14 @@ function mostrarElemento(elemento) {
 
 function quitarError(elemento) {
   document.querySelector(`#${elemento}`).classList.remove("error");
+  document.querySelector(`#${elemento}`).classList.remove("alert");
+  document.querySelector(`#${elemento}`).classList.remove("alert-danger");
 }
 
 function eliminarCampoMensajeDeError(elemento) {
-  if (document.querySelector(`#${elemento}`) !== null) {
-    document.querySelector(`#${elemento}`).remove();
+  const $elemento = document.querySelector(`#${elemento}`);
+  if ($elemento !== null) {
+    $elemento.parentNode.parentNode.removeChild($elemento.parentNode);
   }
 }
 
@@ -54,9 +65,20 @@ function marcarError(elemento) {
 
 function crearElementoError(texto, id) {
   const $error = document.createElement("span");
+  const $div = document.createElement("div");
+  $div.classList.add(
+    "col-auto",
+    "error",
+    "alert",
+    "alert-danger",
+    "p-0",
+    "m-0",
+    "h5"
+  );
   $error.textContent = texto;
   $error.id = `${id}`;
-  return $error;
+  $div.appendChild($error);
+  return $div;
 }
 
 function agregarCampoMensajeDeError(padre, hijo) {

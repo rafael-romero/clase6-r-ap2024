@@ -28,12 +28,12 @@ function crearCamposInputs(cantidadDeIntegrantes) {
       "position-relative",
       "mb-1"
     );
-    nodoIntegrantes.innerHTML = `<div class="col-auto h4"><label class= "col-form-label text-light" for="integrante${
+    nodoIntegrantes.innerHTML = `<div class="col-auto h4"><label class= "col-form-label text-warning" for="integrante${
       i + 1
     }">Edad del integrante numero ${i + 1}:</label></div>
         <div class="col-auto"><input type="number" id="integrante${
           i + 1
-        }" class="familiares form-control"></div>`;
+        }" class="familiares form-control bg-info text-warning rounded-3"></div>`;
     document.querySelector("#integrantes").append(nodoIntegrantes);
   }
 }

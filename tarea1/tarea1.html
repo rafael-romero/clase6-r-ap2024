@@ -6,30 +6,45 @@
   <meta http-equiv='X-UA-Compatible' content='IE=edge'>
   <title>Tarea 1</title>
   <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <style>
+    .error {
+      border: 2px solid red;
+    }
+  </style>
 </head>
 
-<body>
-  <form>
-    <fieldset>
-      <label for="cantidad-de-integrantes">Cuantos integrantes hay en tu familia?</label>
-      <input type="number" id="cantidad-de-integrantes">
-      <button type="button" id="btn-ok">OK</button>
+<body class="text-bg-dark">
+  <form class="container mt-5" id="formulario">
+    <fieldset class="d-flex mb-3 row g-3 align-items-center position-relative" id="contenedor-cantidad-de-integrantes">
+      <div class="col-auto">
+        <label class="form-label h4 text-warning" for="cantidad-de-integrantes">Cuantos integrantes hay en tu familia?</label>
+      </div>
+      <div class="col-auto">
+        <input class="form-control bg-info rounded-3 text-warning" type="number" id="cantidad-de-integrantes">
+      </div>
+      <div class="col-auto">
+        <button class="btn btn-outline-primary btn-sm fw-bolder" type="button" id="btn-ok">OK</button>
+      </div>
     </fieldset>
 
     <fieldset id="integrantes">
-      
-      
+
+
     </fieldset>
-    <fieldset>
-      <button type="button" hidden id="btn-calcular">Calcular</button>
-      <input type="reset" hidden id="btn-reset" value="Empezar de nuevo" />
+    <fieldset class="mb-3 mt-4" id="contenedor-calculo">
+      <button class="btn btn-outline-success fw-bolder me-4" type="button" hidden id="btn-calcular">Calcular</button>
+      <button class="btn btn-outline-danger fw-bolder" type="reset" hidden id="btn-reset">Empezar de nuevo</button>
       <br><br>
-      <em id="resultado"></em>
+      <em class="form-text alert alert-success p-0 text-center fs-3 fw-semibold border-0" id="resultado"></em>
     </fieldset>
-    
+
   </form>
 
+  <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="../node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
   <script src='tarea1.js'></script>
+  <script src='tarea1-pruebas.js'></script>
 </body>
 
 </html>

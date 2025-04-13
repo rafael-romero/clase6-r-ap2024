@@ -15,3 +15,6 @@ Al hacer click en "calcular", mostrar en un elemento pre-existente el mayor sala
 
 Punto bonus: si hay inputs vacíos, ignorarlos en el cálculo (no contarlos como 0).
 
+
+TAREA clase 10:
+La idea es utilizar bootstrap para aplicar estilos a las tareas anteriores como las de la clase 6 por lo tanto para instalar el proyecto de forma local se debe correr "npm install" para agregar las dependencias correspondientes.

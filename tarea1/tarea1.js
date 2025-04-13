@@ -1,40 +1,125 @@
 function obtenerCantidadDeIntegrantes() {
-  const $cantidadDeIntegrantes = Number(
+  const cantidadDeIntegrantes = Number(
     document.querySelector("#cantidad-de-integrantes").value
   );
-  return $cantidadDeIntegrantes;
+  return cantidadDeIntegrantes;
+}
+
+function validarNumeroIngresado(cantidadDeIntegrantes) {
+  const patron = /^[1-9]\d{0,2}$/;
+  if (cantidadDeIntegrantes === 0 || cantidadDeIntegrantes < 0) {
+    return "El numero ingresado debe ser mayor a cero!";
+  } else if (cantidadDeIntegrantes % 1 !== 0) {
+    return "No se aceptan decimales, solo se aceptan numeros enteros positivos!";
+  } else if (!patron.test(cantidadDeIntegrantes.toString())) {
+    return "Solo se aceptan numeros enteros positivos!";
+  }
+  return "";
 }
 
 function crearCamposInputs(cantidadDeIntegrantes) {
   for (let i = 0; i < cantidadDeIntegrantes; i++) {
     const nodoIntegrantes = document.createElement("div");
-    nodoIntegrantes.innerHTML = `<label for="integrante${
+    nodoIntegrantes.id = `contenedor-integrante${i + 1}`;
+    nodoIntegrantes.classList.add(
+      "d-flex",
+      "row",
+      "align-items-center",
+      "position-relative",
+      "mb-1"
+    );
+    nodoIntegrantes.innerHTML = `<div class="col-auto h4"><label class= "col-form-label text-warning" for="integrante${
       i + 1
-    }">Edad del integrante numero ${i + 1}:
-        <input type="number" id="integrante${i + 1}" class="familiares">
-      </label>`;
+    }">Edad del integrante numero ${i + 1}:</label></div>
+        <div class="col-auto"><input type="number" id="integrante${
+          i + 1
+        }" class="familiares form-control bg-info text-warning rounded-3"></div>`;
     document.querySelector("#integrantes").append(nodoIntegrantes);
   }
 }
 
-function deshabilitarBotonOk() {
-  document.querySelector("#btn-ok").disabled = true;
+function deshabilitarElemento(elemento) {
+  document.querySelector(`#${elemento}`).disabled = true;
 }
 
 function mostrarElemento(elemento) {
   document.querySelector(`#${elemento}`).hidden = false;
 }
 
+function quitarError(elemento) {
+  document.querySelector(`#${elemento}`).classList.remove("error");
+  document.querySelector(`#${elemento}`).classList.remove("alert");
+  document.querySelector(`#${elemento}`).classList.remove("alert-danger");
+}
+
+function eliminarCampoMensajeDeError(elemento) {
+  const $elemento = document.querySelector(`#${elemento}`);
+  if ($elemento !== null) {
+    $elemento.parentNode.parentNode.removeChild($elemento.parentNode);
+  }
+}
+
+function marcarError(elemento) {
+  document.querySelector(`#${elemento}`).classList.add("error");
+}
+
+function crearElementoError(texto, id) {
+  const $error = document.createElement("span");
+  const $div = document.createElement("div");
+  $div.classList.add(
+    "col-auto",
+    "error",
+    "alert",
+    "alert-danger",
+    "p-0",
+    "m-0",
+    "h5"
+  );
+  $error.textContent = texto;
+  $error.id = `${id}`;
+  $div.appendChild($error);
+  return $div;
+}
+
+function agregarCampoMensajeDeError(padre, hijo) {
+  const $contenedorPadre = document.querySelector(`#${padre}`);
+  $contenedorPadre.appendChild(hijo);
+}
+
+function asignarMensajeAElemento(elemento, mensaje) {
+  document.querySelector(`#${elemento}`).textContent = mensaje;
+}
+
 const $btnOk = document.querySelector("#btn-ok");
 $btnOk.onclick = function (e) {
   const cantidadDeIntegrantes = obtenerCantidadDeIntegrantes();
-  if (cantidadDeIntegrantes > 0) {
+  const errorCantidadIntegrantes = validarNumeroIngresado(
+    cantidadDeIntegrantes
+  );
+  if (errorCantidadIntegrantes === "") {
+    quitarError("cantidad-de-integrantes");
+    eliminarCampoMensajeDeError("mensajeDeError");
     crearCamposInputs(cantidadDeIntegrantes);
-    deshabilitarBotonOk();
+    deshabilitarElemento("btn-ok");
+    deshabilitarElemento("cantidad-de-integrantes");
     mostrarElemento("btn-calcular");
     mostrarElemento("btn-reset");
+  } else {
+    marcarError("cantidad-de-integrantes");
+    const elementoError = crearElementoError(
+      errorCantidadIntegrantes,
+      "mensajeDeError"
+    );
+    if (document.querySelector("#mensajeDeError") === null) {
+      agregarCampoMensajeDeError(
+        "contenedor-cantidad-de-integrantes",
+        elementoError
+      );
+    } else {
+      asignarMensajeAElemento("mensajeDeError", errorCantidadIntegrantes);
+    }
   }
-}
+};
 
 function obtenerEdades() {
   const edades = [];
@@ -43,6 +128,35 @@ function obtenerEdades() {
     edades.push(Number($edadesIntegrantes[i].value));
   }
   return edades;
+}
+
+function validarEdades(edades) {
+  let cantidadDeErrores = 0;
+
+  edades.forEach(function (edad, indice) {
+    const error = validarNumeroIngresado(edad);
+    const campoMsjError = document.querySelector(`#campo-error${indice + 1}`);
+    if (error) {
+      cantidadDeErrores++;
+      marcarError(`integrante${indice + 1}`);
+      if (campoMsjError === null) {
+        const elementoError = crearElementoError(
+          error,
+          `campo-error${indice + 1}`
+        );
+        agregarCampoMensajeDeError(
+          `contenedor-integrante${indice + 1}`,
+          elementoError
+        );
+      } else {
+        asignarMensajeAElemento(`campo-error${indice + 1}`, error);
+      }
+    } else {
+      quitarError(`integrante${indice + 1}`);
+      eliminarCampoMensajeDeError(`campo-error${indice + 1}`);
+    }
+  });
+  return cantidadDeErrores;
 }
 
 function obtenerEdadMayor(edades) {
@@ -89,12 +203,15 @@ function ocultarElemento(elemento) {
 const $btnCalcular = document.querySelector("#btn-calcular");
 $btnCalcular.onclick = function () {
   const edades = obtenerEdades();
-  const edadMayor = obtenerEdadMayor(edades);
-  const edadMenor = obtenerEdadMenor(edades);
-  const edadPromedio = obtenerPromedioDeEdad(edades);
-  mostrarCalculos(edadMayor, edadMenor, edadPromedio);
-  ocultarElemento("btn-calcular");
-}
+  const sonValidas = validarEdades(edades) === 0;
+  if (sonValidas) {
+    const edadMayor = obtenerEdadMayor(edades);
+    const edadMenor = obtenerEdadMenor(edades);
+    const edadPromedio = obtenerPromedioDeEdad(edades);
+    mostrarCalculos(edadMayor, edadMenor, edadPromedio);
+    ocultarElemento("btn-calcular");
+  }
+};
 
 function borrarCamposInputs() {
   const $integrantes = document.querySelector("#integrantes");
@@ -103,8 +220,8 @@ function borrarCamposInputs() {
   }
 }
 
-function habilitarBotonOk() {
-  document.querySelector("#btn-ok").disabled = false;
+function habilitarElemento(elemento) {
+  document.querySelector(`#${elemento}`).disabled = false;
 }
 
 function eliminarCalculos() {
@@ -116,6 +233,7 @@ $btnReset.onclick = function () {
   borrarCamposInputs();
   ocultarElemento("btn-reset");
   ocultarElemento("btn-calcular");
-  habilitarBotonOk();
+  habilitarElemento("btn-ok");
+  habilitarElemento("cantidad-de-integrantes");
   eliminarCalculos();
-}
+};

@@ -6,18 +6,42 @@
   <meta http-equiv='X-UA-Compatible' content='IE=edge'>
   <title>Tarea 2</title>
   <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <style>
+    .error {
+      border: 3px solid red;
+    }
+  </style>
 </head>
 
-<body>
-  <h1>Agregue campos segun la cantidad de integrantes de su familia que trabajan y coloque su salario anual en cada uno
-  </h1>
-  <button type="button" id="btn-agregar-campo">Agregar Campo</button>
-  <button type="button" id="btn-quitar-campo">Eliminar Campo</button><br><br>
+<body class="container text-bg-dark bg-info bg-gradient">
+  <h1 class="text-center mb-5 mt-4"><em>Agregue campos segun la cantidad de integrantes de su familia que trabajan y coloque su salario anual en cada
+      uno
+    </em></h1>
+  
+  <div class="container mt-5">  
+  <div class="row justify-content-center">
+  <div class="col-6 text-center">
+
+  <div class="d-grid gap-2 d-md-block mb-3">  
+
+  <button class="bg-success-subtle border-success-subtle rounded-3 fs-5 fw-bold" type="button" id="btn-agregar-campo">Agregar Campo</button>
+  <button class="bg-danger-subtle border-danger-subtle rounded-3 fs-5 fw-bold" type="button" id="btn-quitar-campo">Eliminar Campo</button>
+  </div>
+  
   <form id="campos">
   </form><br>
-  <button type="button" id="btn-calcular">Calcular</button>
-  <em id="resultado"></em>
+  
+  </div>
+  </div>
+  </div>
+
+  <button class="btn btn-dark border-light-subtle rounded-3 fs-5 fw-bold d-block" type="button" id="btn-calcular">Calcular</button>
+  <em class="fs-4 fw-bold text-success" id="resultado"></em>
+  <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="../node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
   <script src='tarea2.js'></script>
+  <script src='tarea2-pruebas.js'></script>
 </body>
 
 </html>

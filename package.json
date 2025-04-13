@@ -1,0 +1,23 @@
+{
+  "name": "clase6-r-ap2024",
+  "version": "1.0.0",
+  "description": "TAREA 1: Empezar preguntando cuánta gente hay en el grupo familiar.\r Crear tantos inputs+labels como gente haya para completar la edad de cada integrante.\r Al hacer click en \"calcular\", mostrar en un elemento pre-existente la mayor edad, la menor edad y el promedio del grupo familiar.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "tarea1": "node tarea1/tarea1.js",
+    "tarea2": "node tarea1/tarea2.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rafael-romero/clase6-r-ap2024.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rafael-romero/clase6-r-ap2024/issues"
+  },
+  "homepage": "https://github.com/rafael-romero/clase6-r-ap2024#readme",
+  "dependencies": {
+    "bootstrap": "^5.3.3"
+  }
+}

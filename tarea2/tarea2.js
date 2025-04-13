@@ -9,9 +9,9 @@ $btnAgregarCampo.onclick = function () {
   cantidadDeCampos++;
   const nodoCampo = document.createElement("fieldset");
   nodoCampo.id = `contenedor-salario-integrante${cantidadDeCampos}`;
-  nodoCampo.innerHTML = `<label for="salario-integrante${cantidadDeCampos}">
+  nodoCampo.innerHTML = `<label class="fs-4 fw-bolder" for="salario-integrante${cantidadDeCampos}">
         El salario anual del integrante #${cantidadDeCampos} es:
-        <input type="number" id="salario-integrante${cantidadDeCampos}" class='salario'>
+        <input type="number" id="salario-integrante${cantidadDeCampos}" class='salario rounded-3 bg-secondary text-light fw-bold fs-4'>
       </label>`;
   document.querySelector("#campos").appendChild(nodoCampo);
   borrarCalculos();
